@@ -1,8 +1,8 @@
-<!doctype html> <html> <head> <meta charset="utf-8"> <title>Widget Iframe Test</title> <meta name="viewport" content="width=device-width, initial-scale=1"> <style> .wrap { max-width: 800px; margin: 0 auto; } #widget-frame { width: 100%; border: 1px solid #ddd; height: 700px; } /* fallback height */ </style> </head> <body> <h1>Widget Iframe Test</h1>
+<!doctype html> <html> <head> <meta charset="utf-8"> <title>Widget Iframe Test</title> <meta name="viewport" content="width=device-width, initial-scale=1"> <style> .wrap { max-width: 800px; margin: 0 auto; } #widget-frame { width: 100%; border: 1px solid #ddd; height: 700px; } /* fallback */ </style> </head> <body> <h1>Widget Iframe Test</h1>
 <div class="wrap">
   <iframe
     id="widget-frame"
-    src="https://usefull.com.au/version-42nzj/booking-widget/bite-pizza?mode=embed"
+    src="https://usefull.com.au/version-42nzj/booking-widget/bite-pizza?mode=embed&v=4"
     scrolling="no"
     allow="clipboard-read; clipboard-write; autoplay; payment"
     loading="eager"
@@ -10,13 +10,17 @@
   </iframe>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/iframe-resizer/js/iframeResizer.min.js"></script>
+<!-- Parent library -->
+<script src="https://cdn.jsdelivr.net/npm/@iframe-resizer/parent@5/dist/iframeResizer.min.js"></script>
+<!-- If blocked, fallback: https://unpkg.com/@iframe-resizer/parent@5/dist/iframeResizer.min.js -->
+
 <script>
-  iFrameResize(
+  iframeResize(
     {
-      log: true,         // turn on debug so we can see the handshake
-      checkOrigin: false // relax for testing; we’ll tighten after it works
-      // heightCalculationMethod: 'max' // try this if off-by-a-bit
+      log: true,                     // see handshake in console
+      checkOrigin: ['https://usefull.com.au'],
+      warningTimeout: 0              // suppress “no response” warning while testing
+      // heightCalculationMethod: 'max' // uncomment if you ever see off-by-some-pixels
     },
     '#widget-frame'
   );
