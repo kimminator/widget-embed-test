@@ -2,7 +2,7 @@
 <div class="wrap">
   <iframe
     id="widget-frame"
-    src="https://usefull.com.au/version-42nzj/booking-widget/bite-pizza?mode=embed&v=4"
+    src="https://usefull.com.au/version-42nzj/booking-widget/bite-pizza?mode=embed&v=7"
     scrolling="no"
     allow="clipboard-read; clipboard-write; autoplay; payment"
     loading="eager"
@@ -10,17 +10,18 @@
   </iframe>
 </div>
 
-<!-- Parent library -->
-<script src="https://unpkg.com/@iframe-resizer/parent@5/dist/iframeResizer.min.js"></script>
-<!-- If blocked, fallback: https://unpkg.com/@iframe-resizer/parent@5/dist/iframeResizer.min.js -->
+<!-- Parent library (v5 combined) -->
+<script src="https://cdn.jsdelivr.net/npm/iframe-resizer@5.5.5/js/iframeResizer.min.js"></script>
+<!-- If needed, fallback: https://unpkg.com/iframe-resizer@5.5.5/js/iframeResizer.min.js -->
 
 <script>
+  // v5 supports both names; use the new one to avoid the deprecation warning
   iframeResize(
     {
-      log: true,                     // see handshake in console
+      log: true,                        // turn off after verifying
       checkOrigin: ['https://usefull.com.au'],
-      warningTimeout: 0              // suppress “no response” warning while testing
-      // heightCalculationMethod: 'max' // uncomment if you ever see off-by-some-pixels
+      warningTimeout: 0                 // suppress “no response” while testing
+      // heightCalculationMethod: 'max' // try if you ever see off-by-some-pixels
     },
     '#widget-frame'
   );
