@@ -1,1 +1,13 @@
-<html> <head> <meta charset="utf-8"> <title>Widget Iframe Test</title> <meta name="viewport" content="width=device-width, initial-scale=1"> <style> .wrap { max-width: 800px; margin: 0 auto; } #widget-frame { width: 100%; border: 1px solid #ddd; height: 700px; } /* fallback */ </style> </head> <body> <h1>Widget Iframe Test</h1> <div style="max-width: 800px; margin: 0 auto;"> <iframe src="https://usefull.com.au/version-42nzj/booking-widget/bite-pizza?mode=embed" style="width: 100%; height: 700px; border: 1px solid #ddd;" allow="clipboard-read; clipboard-write; autoplay; payment" loading="eager" referrerpolicy="strict-origin-when-cross-origin"> </iframe> </div> </body> </html>
+<!DOCTYPE html> <html> <head> <meta charset="utf-8" /> <title>Test Bubble iFrame</title> <!-- Make sure body has no margin/padding so the iframe can fill as needed --> <style> html, body { margin: 0; padding: 0; height: 100%; } /* You can place the iframe in a container if you want more layout control */ #iframe-container { width: 100%; min-height: 600px; /* an initial minimum height if desired */ } </style> </head> <body> <!-- The container (optional, but helpful) --> <div id="iframe-container"> <iframe id="myBubbleIframe" src="https://usefull.com.au/version-42nzj/booking-widget/bite-pizza" frameborder="0" style="width: 100%; border: none; overflow: hidden;" scrolling="no" allowtransparency="true" ></iframe> </div>
+<!-- Parent-side iFrameResizer script from a CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.5/iframeResizer.min.js"></script>
+
+<script>
+  // Initialize iFrameResizer
+  iFrameResize({
+    log: true,                         // Optional debugging
+    checkOrigin: false,               // Needed for cross-domain
+    heightCalculationMethod: 'bodyScroll' // Usually a good default
+  }, '#myBubbleIframe');
+</script>
+</body> </html>
