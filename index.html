@@ -1,13 +1,14 @@
-<!DOCTYPE html> <html> <head> <meta charset="utf-8" /> <title>Test Bubble iFrame</title> <!-- Make sure body has no margin/padding so the iframe can fill as needed --> <style> html, body { margin: 0; padding: 0; height: 100%; } /* You can place the iframe in a container if you want more layout control */ #iframe-container { width: 100%; min-height: 600px; /* an initial minimum height if desired */ } </style> </head> <body> <!-- The container (optional, but helpful) --> <div id="iframe-container"> <iframe id="myBubbleIframe" src="https://usefull.com.au/version-42nzj/booking-widget/bite-pizza" frameborder="0" style="width: 100%; border: none; overflow: hidden;" scrolling="no" allowtransparency="true" ></iframe> </div>
-<!-- Parent-side iFrameResizer script from a CDN -->
+<!DOCTYPE html> <html> <head> <meta charset="utf-8" />
+<style> html, body { margin: 0; padding: 0; height: 100%; }
+#iframe-container { width: 100%; min-height: 600px;}</style></head><body> 
+<div id="iframe-container"><iframe id="usefullIframe" src="https://usefull.com.au/booking-widget/ekhidna-kitchen" frameborder="0" style="width: 100%; border: none; overflow: hidden;" scrolling="no" allowtransparency="true" ></iframe> </div>
+<!-- Usefull iFrameResizer script -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.5/iframeResizer.min.js"></script>
-
 <script>
   // Initialize iFrameResizer
   iFrameResize({
-    log: true,                         // Optional debugging
-    checkOrigin: false,               // Needed for cross-domain
-    heightCalculationMethod: 'bodyScroll' // Usually a good default
-  }, '#myBubbleIframe');
+    checkOrigin: false,
+    heightCalculationMethod: 'bodyScroll'
+  }, '#usefullIframe');
 </script>
 </body> </html>
