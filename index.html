@@ -1,36 +1,66 @@
-<!DOCTYPE html> <html> <head> <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<style> html, body { margin: 0; padding: 0; height: 100%; background-color: #000000; }
-#iframe-container { width: 100%; min-height: 600px;}</style></head><body><br><br><br><br><br><br><br><br><br><br><h1>booking form test</h1><br><br><br><br> 
-<div id="iframe-container"><iframe id="usefullIframe" src="https://usefull.com.au/version-test/booking-widget/bite-pizza" frameborder="0" style="width: 100%; border: none; overflow: hidden;" scrolling="no" allowtransparency="true" ></iframe> </div>
-<br><br><br><br><br><br><br><br><br><br>
-  <!-- Usefull iFrameResizer script -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.5/iframeResizer.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const iframe = document.getElementById('usefullIframe');
-
-  iFrameResize({
-    checkOrigin: false,
-    heightCalculationMethod: 'bodyScroll',
-
-    // Runs whenever the child sends parentIFrame.sendMessage(...)
-    onMessage: function (data) {
-      console.log('Parent received:', data);
-
-      if (data.message === 'scrollIframeTop') {
-        // Wait a tick so iFrameResize can finish adjusting height
-        requestAnimationFrame(() => {
-          const headerOffset = 0;             // adjust if you have a sticky header etc.
-          const top = iframe.getBoundingClientRect().top + window.pageYOffset - headerOffset;
-
-          window.scrollTo({
-            top,
-            behavior: 'smooth'
-          });
-        });
-      }
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
     }
-  }, iframe);
-});
-</script>
-</body> </html>
+    #iframe-container {
+      width: 100%;
+      min-height: 600px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- filler so you can see the scroll -->
+  <br><br><br><br><br><br><br><br><br><br>
+  <h1>booking form test</h1>
+  <br><br><br><br>
+
+  <div id="iframe-container">
+    <iframe
+      id="usefullIframe"
+      src="https://usefull.com.au/version-test/booking-widget/bite-pizza"
+      frameborder="0"
+      style="width: 100%; border: none; overflow: hidden;"
+      scrolling="no"
+      allowtransparency="true">
+    </iframe>
+  </div>
+
+  <br><br><br><br><br><br><br><br><br><br>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.5/iframeResizer.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const iframe = document.getElementById('usefullIframe');
+
+      iFrameResize({
+        checkOrigin: false,
+        heightCalculationMethod: 'bodyScroll',
+        onMessage: (data, iframeEl) => {
+          console.log('Parent received:', data);
+
+          if (data.message === 'scrollIframeTop') {
+            // Wait for iframe-resizer to finish adjusting height
+            requestAnimationFrame(() => {
+              iframeEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+              // Optional: account for a sticky header
+              const stickyHeaderHeight = 0; // adjust if you have one
+              if (stickyHeaderHeight) {
+                window.scrollBy({ top: -stickyHeaderHeight, behavior: 'instant' });
+              }
+            });
+          }
+        }
+      }, iframe);
+    });
+  </script>
+</body>
+</html>
