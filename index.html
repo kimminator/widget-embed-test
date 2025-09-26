@@ -37,25 +37,25 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.5/iframeResizer.min.js"></script>
   <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const iframe = document.getElementById('usefullIframe');
+document.addEventListener('DOMContentLoaded', function () {
+  var iframe = document.getElementById('usefullIframe');
 
   iFrameResize({
     checkOrigin: false,
     heightCalculationMethod: 'bodyScroll',
-    onMessage: (data, iframeEl) => {
+    onMessage: function (data, iframeEl) {
       if (data.message === 'scrollIframeTop') {
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            const container = iframeEl.parentElement; // <div id="iframe-container">
-            const rect = container.getBoundingClientRect();
-            const scrollTop = rect.top + (window.scrollY || window.pageYOffset);
+        requestAnimationFrame(function () {
+          setTimeout(function () {
+            var container = iframeEl.parentElement;
+            var rect = container.getBoundingClientRect();
+            var scrollTop = rect.top + window.pageYOffset;
 
             window.scrollTo({
-              top: scrollTop - 10,  // tweak this if needed (+/- value)
+              top: scrollTop - 12,
               behavior: 'smooth'
             });
-          }, 60); // enough time for the iframe height to settle
+          }, 60);
         });
       }
     }
