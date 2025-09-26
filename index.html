@@ -37,30 +37,30 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.5/iframeResizer.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const iframe = document.getElementById('usefullIframe');
+document.addEventListener('DOMContentLoaded', () => {
+  const iframe = document.getElementById('usefullIframe');
 
-      iFrameResize({
-        checkOrigin: false,
-        heightCalculationMethod: 'bodyScroll',
-        onMessage: (data, iframeEl) => {
-          console.log('Parent received:', data);
+  iFrameResize({
+    checkOrigin: false,
+    heightCalculationMethod: 'bodyScroll',
+    onMessage: (data, iframeEl) => {
+      if (data.message === 'scrollIframeTop') {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            const container = iframeEl.parentElement; // <div id="iframe-container">
+            const rect = container.getBoundingClientRect();
+            const scrollTop = rect.top + (window.scrollY || window.pageYOffset);
 
-          if (data.message === 'scrollIframeTop') {
-            // Wait for iframe-resizer to finish adjusting height
-            requestAnimationFrame(() => {
-              iframeEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-              // Optional: account for a sticky header
-              const stickyHeaderHeight = 0; // adjust if you have one
-              if (stickyHeaderHeight) {
-                window.scrollBy({ top: -stickyHeaderHeight, behavior: 'instant' });
-              }
+            window.scrollTo({
+              top: scrollTop - 10,  // tweak this if needed (+/- value)
+              behavior: 'smooth'
             });
-          }
-        }
-      }, iframe);
-    });
-  </script>
+          }, 60); // enough time for the iframe height to settle
+        });
+      }
+    }
+  }, iframe);
+});
+</script>
 </body>
 </html>
