@@ -5,5 +5,32 @@
 <br><br><br><br><br><br><br><br><br><br>
   <!-- Usefull iFrameResizer script -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.5/iframeResizer.min.js"></script>
-<script> iFrameResize({ checkOrigin: false, heightCalculationMethod: 'bodyScroll', onMessage: function(messageData) { if (messageData.message === 'scrollIframeTop') { const iframeEl = document.getElementById('usefullIframe'); iframeEl.scrollIntoView({ behavior: 'smooth' }); } } }, '#usefullIframe'); </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const iframe = document.getElementById('usefullIframe');
+
+  iFrameResize({
+    checkOrigin: false,
+    heightCalculationMethod: 'bodyScroll',
+
+    // Runs whenever the child sends parentIFrame.sendMessage(...)
+    onMessage: function (data) {
+      console.log('Parent received:', data);
+
+      if (data.message === 'scrollIframeTop') {
+        // Wait a tick so iFrameResize can finish adjusting height
+        requestAnimationFrame(() => {
+          const headerOffset = 0;             // adjust if you have a sticky header etc.
+          const top = iframe.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top,
+            behavior: 'smooth'
+          });
+        });
+      }
+    }
+  }, iframe);
+});
+</script>
 </body> </html>
