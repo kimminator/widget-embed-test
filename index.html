@@ -37,30 +37,11 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.5/iframeResizer.min.js"></script>
   <script>
-document.addEventListener('DOMContentLoaded', function () {
-  var iframe = document.getElementById('usefullIframe');
-
+  // Initialize iFrameResizer
   iFrameResize({
     checkOrigin: false,
-    heightCalculationMethod: 'bodyScroll',
-    onMessage: function (data, iframeEl) {
-      if (data.message === 'scrollIframeTop') {
-        requestAnimationFrame(function () {
-          setTimeout(function () {
-            var container = iframeEl.parentElement;
-            var rect = container.getBoundingClientRect();
-            var scrollTop = rect.top + window.pageYOffset;
-
-            window.scrollTo({
-              top: scrollTop - 12,
-              behavior: 'smooth'
-            });
-          }, 60);
-        });
-      }
-    }
-  }, iframe);
-});
+    heightCalculationMethod: 'bodyScroll'
+  }, '#usefullIframe');
 </script>
 </body>
 </html>
